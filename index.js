@@ -24,6 +24,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/user", userRoute);
 app.use("/mission", missionRoute);
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started at ${3000}`);
 })
