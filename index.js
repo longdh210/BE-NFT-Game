@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const mongoString = process.env.DATABASE_URL;
-const userRoute = require('./src/routers/user')
+const userRoute = require('./src/routers/user');
+const missionRoute = require('./src/routers/mission');
 const cors = require('cors');
 
 mongoose.connect(mongoString);
@@ -22,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRoute);
-
+app.use("/mission", missionRoute);
 app.listen(3000, () => {
     console.log(`Server started at ${3000}`);
 })
