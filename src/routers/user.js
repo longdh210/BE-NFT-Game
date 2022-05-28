@@ -37,6 +37,16 @@ router.get('/check/:address', async (req, res) => {
     }
 })
 
+// Get user data by address method
+router.get('/get/:address', async (req, res) => {
+    try {
+        const data = await User.find({ 'address' : req.params.address});      
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
+
 // Update by address method
 router.patch('/update/:address', async(req, res) => {
     try{

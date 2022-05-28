@@ -20,6 +20,7 @@ database.once("connected", () => {
 
 const app = express();
 
+// app.use(updateMatch);
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRoute);
