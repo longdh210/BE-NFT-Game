@@ -8,13 +8,9 @@ const missionRoute = require("./src/routers/mission");
 const cors = require("cors");
 const { User, Mission } = require("./src/models/model");
 const { transferToken } = require("./src/middleware/transferToken");
-const Web3 = require("web3");
-const web3 = new Web3("https://rpc-mumbai.matic.today");
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
-
-let amount = web3.utils.toHex(web3.utils.toWei("1.5"));
 
 database.on("error", (error) => {
     console.log(error);
@@ -37,15 +33,11 @@ database.once("open", () => {
             const userData = await User.find({ _id: id }).exec();
             const missionData = await Mission.find().exec();
             missionData.forEach((mission) => {
-                if (userData[0].matchInDay === mission.numMatches) {
-                    transferToken(
-                        userData[0].address,
-                        web3.utils.toHex(web3.utils.toWei(`${mission.reward}`))
-                    );
+                if (userData[0].matchInDay == mission.numMatches) {
+                    transferToken(userData[0].address, mission.reward);
+                    console.log("transfer token successfully");
                 }
             });
-            // console.log("data", data[0].address);
-            // transferToken(data[0].address, amount);
         }
     });
 });
